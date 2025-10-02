@@ -1,5 +1,13 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/CheatsGood/KiojiHub/refs/heads/main/Source"))()
+getgenv().Config = {
+	Invite = "informant.wtf",
+	Version = "0.0",
+}
 
+getgenv().luaguardvars = {
+	DiscordName = "username#0000",
+}
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/drillygzzly/Other/main/1"))()
 
 library:init() -- Initalizes Library Do Not Delete This
 
@@ -18,30 +26,31 @@ local tabs = {
 -- 2 = Set Section Box To The Right
 
 local sections = {
-	Section1 = tabs.Tab1:AddSection("Section1", 1),
-	Section2 = tabs.Tab1:AddSection("Section2", 2),
+	Section1 = tabs.Tab1:AddSection("Movement", 1),
+	Section2 = tabs.Tab1:AddSection("Visuals", 2),
 }
 
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 
 local player = Players.LocalPlayer
-local speedConnection -- conexão que aplica a velocidade
+local speedConnection 
 local speedEnabled = false
-local speedValue = 16 -- valor do slider
-local defaultSpeed = 16 -- velocidade padrão do Roblox
+local speedValue = 16 
+local defaultSpeed = 16 
+local jumpConnection 
+local jumpEnabled = false
+local jumpValue = 50 
+local defaultJump = 50 
 
--- Função que ativa/desativa a velocidade
 local function toggleSpeed(state)
     speedEnabled = state
     if not state then
-        -- Desconecta o loop
         if speedConnection then
             speedConnection:Disconnect()
             speedConnection = nil
         end
 
-        -- Restaura velocidade padrão
         local character = player.Character
         if character then
             local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -53,7 +62,6 @@ local function toggleSpeed(state)
         return
     end
 
-    -- Liga o loop
     if not speedConnection then
         speedConnection = RunService.RenderStepped:Connect(function()
             local character = player.Character
@@ -68,8 +76,6 @@ local function toggleSpeed(state)
 end
 
 
-
--- Botão/toggle: ativa ou desativa speed
 sections.Section1:AddToggle({
     enabled = true,
     text = "Ativar Speed",
@@ -82,7 +88,6 @@ sections.Section1:AddToggle({
     end
 })
 
--- Slider: muda o valor da velocidade
 sections.Section1:AddSlider({
     text = "Velocidade",
     flag = "Slider_Speed",
@@ -98,22 +103,14 @@ sections.Section1:AddSlider({
     end
 })
 
-local jumpConnection -- conexão que aplica o jump
-local jumpEnabled = false
-local jumpValue = 50 -- valor inicial do slider (padrão do Roblox é 50)
-local defaultJump = 50 -- jump padrão do Roblox
-
--- Função que ativa/desativa o jump
 local function toggleJump(state)
     jumpEnabled = state
     if not state then
-        -- Desconecta o loop
         if jumpConnection then
             jumpConnection:Disconnect()
             jumpConnection = nil
         end
 
-        -- Restaura JumpPower padrão
         local character = player.Character
         if character then
             local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -125,7 +122,6 @@ local function toggleJump(state)
         return
     end
 
-    -- Liga o loop
     if not jumpConnection then
         jumpConnection = RunService.RenderStepped:Connect(function()
             local character = player.Character
@@ -139,7 +135,6 @@ local function toggleJump(state)
     end
 end
 
--- Botão/toggle: ativa ou desativa jump
 sections.Section1:AddToggle({
     enabled = true,
     text = "Ativar Jump",
@@ -152,7 +147,6 @@ sections.Section1:AddToggle({
     end
 })
 
--- Slider: muda o valor do jump
 sections.Section1:AddSlider({
     text = "Jump Power",
     flag = "Slider_Jump",
@@ -168,116 +162,119 @@ sections.Section1:AddSlider({
     end
 })
 
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/linemaster2/esp-library/main/library.lua"))();
 
---[[
-sections.Section1:AddToggle({
-	enabled = true,
-	text = "Toggle1",
-	flag = "Toggle_1",
-	tooltip = "Tooltip1",
-	risky = true, -- turns text to red and sets label to risky
-	callback = function(lol)
-	    print("Toggle Is Now Set To : ".. lol)
-	end
-})
+--// Master switch
+ESP.Enabled = true;
 
-sections.Section1:AddButton({
-	enabled = true,
-	text = "Button1",
-	flag = "Button_1",
-	tooltip = "Tooltip1",
-	risky = false,
-	confirm = false, -- shows confirm button
-	callback = function(v)
-	    print(v)
-	end
-})
+--// Enable boxes
+ESP.ShowBox = false;
 
-sections.Section1:AddSeparator({
-	text = "Separator"
-})
+--// Set the box type to corner
+ESP.BoxType = "Corner Box Esp";
 
-sections.Section1:AddSlider({
-	text = "Slider", 
-	flag = 'Slider_1', 
-	suffix = "", 
-	value = 0.000,
-	min = 0.1, 
-	max = 0.999,
-	increment = 0.001,
-	tooltip = "Tooltip1",
-	risky = false,
-	callback = function(v) 
-		print("Slider Value Is Now : ".. v)
-	end
-})
+--// Enable names
+ESP.ShowName = false;
 
-sections.Section1:AddBind({
-	text = "Keybind",
-	flag = "Key_1",
-	nomouse = true,
-	noindicator = true,
-	tooltip = "Tooltip1",
-	mode = "toggle",
-	bind = Enum.KeyCode.Q,
-	risky = false,
-	keycallback = function(v)
-	    print("Keybind Changed!")
-	end
-})
+--// Enable Healhbar
+ESP.ShowHealth = false;
 
-sections.Section1:AddList({
-	enabled = true,
-	text = "List",
-	flag = "List_1",
-	multi = false,
-	tooltip = "Tooltip1",
+--// Enable tracers
+ESP.ShowTracer = false;
+
+--// Enable Distance
+ESP.ShowDistance = false;
+
+sections.Section2:AddToggle({
+    enabled = true,
+    text = "ESP - Boxes",
+    flag = "Button_ESP_Boxes",
+    tooltip = "Ver pessoas magicamente",
     risky = false,
-    dragging = false,
-    focused = false,
-	value = "1",
-	values = {
-		"1",
-		"2",
-		"3"
-	},
-	callback = function(v)
-	    print("List Value Is Now : "..v)
-	end
-})
-
-sections.Section1:AddBox({
-    enabled = true,
-    focused = true,
-    text = "TextBox1",
-    input = "PlaceHolder1",
-	flag = "Text_1",
-	risky = false,
-	callback = function(v)
-	    print(v)
-	end
-})
-
-sections.Section1:AddText({
-    enabled = true,
-    text = "Text1",
-    flag = "Text_1",
-    risky = false,
-})
-
-sections.Section1:AddColor({
-    enabled = true,
-    text = "ColorPicker1",
-    flag = "Color_1",
-    tooltip = "ToolTip1",
-    color = Color3.new(255, 255, 255),
-    trans = 0,
-    open = false,
-    callback = function()
-        
+    confirm = false,
+    callback = function(v) 
+        ESP.ShowBox = v
     end
 })
-]]
-library:SendNotification("Haru Kioji Hub Loaded", 5, Color3.new(255, 0, 0))
 
---Window:SetOpen(true) -- Either Close Or Open Window
+sections.Section2:AddToggle({
+    enabled = true,
+    text = "ESP - Names",
+    flag = "Button_ESP_Names",
+    tooltip = "Ver pessoas magicamente",
+    risky = false,
+    confirm = false,
+    callback = function(v) 
+        ESP.ShowName = v
+    end
+})
+
+sections.Section2:AddToggle({
+    enabled = true,
+    text = "ESP - Healhbar",
+    flag = "Button_ESP_Healthbar",
+    tooltip = "Healer Edict III",
+    risky = false,
+    confirm = false,
+    callback = function(v) 
+        ESP.ShowHealth = v
+    end
+})
+
+sections.Section2:AddToggle({
+    enabled = true,
+    text = "ESP - Tracers",
+    flag = "Button_ESP_Tracers",
+    tooltip = "se voce usa essa merda, kys",
+    risky = false,
+    confirm = false,
+    callback = function(v) 
+        ESP.ShowTracer = v
+    end
+})
+
+sections.Section2:AddToggle({
+    enabled = true,
+    text = "ESP - ShowDistance",
+    flag = "Button_ESP_ShowDistance",
+    tooltip = "Mostra a distancia",
+    risky = false,
+    confirm = false,
+    callback = function(v) 
+        ESP.ShowDistance = v
+    end
+})
+
+
+
+--[[
+    These are all the settings
+    local ESP_SETTINGS = {
+        BoxOutlineColor = Color3.new(0, 0, 0),
+        BoxColor = Color3.new(1, 1, 1),
+        NameColor = Color3.new(1, 1, 1),
+        HealthOutlineColor = Color3.new(0, 0, 0),
+        HealthHighColor = Color3.new(0, 1, 0),
+        HealthLowColor = Color3.new(1, 0, 0),
+        CharSize = Vector2.new(4, 6),
+        Teamcheck = false,
+        WallCheck = false,
+        Enabled = false,
+        ShowBox = false,
+        BoxType = "2D",
+        ShowName = false,
+        ShowHealth = false,
+        ShowDistance = false,
+        ShowSkeletons = false,
+        ShowTracer = false,
+        TracerColor = Color3.new(1, 1, 1), 
+        TracerThickness = 2,
+        SkeletonsColor = Color3.new(1, 1, 1),
+        TracerPosition = "Bottom",
+    }
+    ermm yep thats about it
+]]
+print("Loaded")
+
+
+library:SendNotification("Haru Kioji Hub Loaded", 5, Color3.new(255, 0, 0))
