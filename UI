@@ -4593,7 +4593,7 @@ function library:CreateSettingsTab(menu)
     creditsSection:AddText({text = "voidesu"})
     creditsSection:AddSeparator({text = 'Neguinho q viro o nome da hub'});
     creditsSection:AddText({text = "harukiojiiii"})
-    creditsSection:AddText({text = "faz um favor e avisa pra ele que as musicas deles sao bootycheeks"})
+    creditsSection:AddText({text = "SUAS MUSICAS SAO ASS"})
 
 
     configSection:AddBox({text = 'Config Name', flag = 'configinput'})
