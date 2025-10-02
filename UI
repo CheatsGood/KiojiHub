@@ -74,7 +74,7 @@ library.themes = {
     {
         name = 'Default',
         theme = {
-            ["Accent"]                    = fromrgb(204, 45, 45);
+            ["Accent"]                    = fromrgb(182, 113, 209);
             ["Background"]                = fromrgb(18,18,18);
             ["Border"]                    = fromrgb(0,0,0);
             ["Border 1"]                  = fromrgb(60,60,60);
@@ -4593,7 +4593,7 @@ function library:CreateSettingsTab(menu)
     creditsSection:AddText({text = "voidesu"})
     creditsSection:AddSeparator({text = 'Neguinho q viro o nome da hub'});
     creditsSection:AddText({text = "harukiojiiii"})
-    creditsSection:AddText({text = "SUAS MUSICAS SAO ASS"})
+    creditsSection:AddText({text = "harukioji, suas musicas sao ass"})
 
 
     configSection:AddBox({text = 'Config Name', flag = 'configinput'})
